@@ -144,16 +144,16 @@ def init_star(input_nbook):
     input_nbook['settings']['data_dic']['DI']['system_prop']={'achrom':{'LD':['quadratic'],'LD_u1' : [input_nbook['par']['ld_u1']],'LD_u2' : [input_nbook['par']['ld_u2']]}}
     return None   
 
-def init_spot(input_nbook,sp_type):
+def init_ar(input_nbook,ar_type):
     inst = input_nbook['par']['instrument']
     vis = input_nbook['par']['night']
-    if sp_type == 'main':
+    if ar_type == 'main':
         input_nbook['settings']['mock_dic']['ar_prop']={inst:{
                                                                 vis:{}
                                                                 }
                                                            }
         input_nbook['settings']['gen_dic']['studied_ar'] = {}
-        input_nbook['settings']['data_dic']['DI']['ar_prop'] = {'achrom':{'LD':['quadratic'],'LD_u1' : [input_nbook['par']['ld_spot_u1']],'LD_u2' : [input_nbook['par']['ld_spot_u2']]}}
+        input_nbook['settings']['data_dic']['DI']['ar_prop'] = {'achrom':{'LD':['quadratic'],'LD_u1' : [input_nbook['par']['ld_ar_u1']],'LD_u2' : [input_nbook['par']['ld_ar_u2']]}}
         input_nbook['settings']['data_dic']['DI']['transit_prop'] = {'nsub_Dstar':201., 
                                                                      inst:{
                                                                           vis:{'mode':'simu', 'n_oversamp':5.}
@@ -162,9 +162,9 @@ def init_spot(input_nbook,sp_type):
     for key in ['lat', 'Tc', 'ang', 'fctrst']:
         if key=='Tc': temp=key+'_ar'
         else:temp=key
-        input_nbook['settings']['mock_dic']['ar_prop'][inst][vis][temp+'__IS'+inst+'_VS'+vis+'__AR'+input_nbook['par']['spot_name']]=input_nbook['par'][key]
-    input_nbook['settings']['gen_dic']['studied_ar'][input_nbook['par']['spot_name']]={inst:[vis]}
-    input_nbook['settings']['data_dic']['DI']['ar_prop']['achrom'][input_nbook['par']['spot_name']]=[input_nbook['par']['ang']*np.pi/180.]
+        input_nbook['settings']['mock_dic']['ar_prop'][inst][vis][temp+'__IS'+inst+'_VS'+vis+'__AR'+input_nbook['par']['ar_name']]=input_nbook['par'][key]
+    input_nbook['settings']['gen_dic']['studied_ar'][input_nbook['par']['ar_name']]={inst:[vis]}
+    input_nbook['settings']['data_dic']['DI']['ar_prop']['achrom'][input_nbook['par']['ar_name']]=[input_nbook['par']['ang']*np.pi/180.]
     input_nbook['settings']['theo_dic']=input_nbook['settings']['mock_dic']
     return None
 
@@ -495,13 +495,13 @@ def ana_jointcomm(input_nbook,data_type,ana_type):
                 prop_main='FWHM'
                 prop_name='FWHM__ord'+str(ideg)+'__IS__VS_'
     
-            #Spot properties
+            #Active region properties
             elif (('lat' in prop) or ('Tc' in prop) or ('ang' in prop)):
-                temp_prop_name,spot_name = prop.split('_')
+                temp_prop_name,ar_name = prop.split('_')
                 if 'Tc' in prop:temp_prop_name+='_ar'
-                prop_name = temp_prop_name+'__IS'+input_nbook['par']['instrument']+'_VS'+input_nbook['par']['night']+'_AR'+spot_name
+                prop_name = temp_prop_name+'__IS'+input_nbook['par']['instrument']+'_VS'+input_nbook['par']['night']+'__AR'+ar_name
             elif  'fctrst' in prop:
-                prop_name = 'fctrst__IS'+input_nbook['par']['instrument']+'_VS'+input_nbook['par']['night']+'_AR'
+                prop_name = 'fctrst__IS'+input_nbook['par']['instrument']+'_VS'+input_nbook['par']['night']+'__AR'
             mean_prop = np.mean(bd_prop)
             fit_prop_dic = {'vary':True,'guess':mean_prop,'bd':bd_prop}
             if (ana_type=='Prop'):input_nbook['settings']['glob_fit_dic'][data_type+ana_type]['mod_prop'][prop_main][prop_name]=fit_prop_dic
@@ -943,9 +943,9 @@ def plot_prof(input_nbook,data_type):
         input_nbook['par'].pop('fit_type')  
     return None
 
-def plot_spot(input_nbook):
+def plot_ar(input_nbook):
     input_nbook['plots']['system_view']['mock_ar_prop'] = True
-    input_nbook['plots']['system_view']['n_spcell'] = 101
+    input_nbook['plots']['system_view']['n_arcell'] = 101
     return None
 
 def plot_map(input_nbook,data_type):
