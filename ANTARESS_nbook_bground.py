@@ -19,7 +19,6 @@ def save_system(input_nbook):
     for key_plot in ['system_view','prop_DI','prop_Intr','DI_prof','Intr_prof','map_Intr_prof','map_Intr_prof_est','map_Intr_prof_res','map_Diff_prof','flux_ar','trans_ar','gcal_ord','noises_ord','tell_CCF','tell_prop','Fbal_corr','cosm_corr']:input_nbook['settings']['plot_dic'][key_plot] = ''
     
     input_nbook['saved_data_path'] = input_nbook['working_path']+'/'+input_nbook['par']['star_name'] +'/'+input_nbook['par']['main_pl'] + '_Saved_data'
-    input_nbook['plots_path'] = input_nbook['working_path']+'/'+input_nbook['par']['star_name'] +'/'+input_nbook['par']['main_pl'] + '_Plots'
     print('System and data stored in : ', input_nbook['saved_data_path'])
     print('Plots stored in : ', input_nbook['plots_path'])
     if (not path_exist(input_nbook['saved_data_path'])): os_system.makedirs(input_nbook['saved_data_path'])
