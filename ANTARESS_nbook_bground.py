@@ -297,15 +297,7 @@ Plot functions
 
 def plot_system(input_nbook):
     input_nbook['settings']['plot_dic']['system_view'] = 'png' 
-    main_pl_Tcenter = input_nbook['system'][input_nbook['par']['star_name']][input_nbook['par']['main_pl']]['Tcenter']
-    visit_breadth_low = np.abs(input_nbook['par']['range'][0] - main_pl_Tcenter)
-    visit_breadth_high = np.abs(input_nbook['par']['range'][1] - main_pl_Tcenter)
-    BJD_dic = {
-      'inst':input_nbook['par']['instrument'],
-      'vis':input_nbook['par']['night'],
-      't':np.linspace(main_pl_Tcenter - 1.5*visit_breadth_low, main_pl_Tcenter + 1.5*visit_breadth_high, input_nbook['par']['nexp']//2)
-    }
-    input_nbook['plots']['system_view']={'t_BJD':BJD_dic ,'GIF_generation':True}
+    input_nbook['plots']['system_view']={'t_BJD':input_nbook['par']['t_BJD'] ,'GIF_generation':True, 'n_stcell':101, 'n_arcell':51}
     return None
 
 def plot_prop(input_nbook,data_type):
@@ -390,6 +382,7 @@ def plot_prof(input_nbook,data_type):
         'GIF_generation':True,
         'shade_cont':True,
         'plot_line_model':True,
+        'multi_exp':True,
         'plot_prop':False} 
     if input_nbook['type'] in ['Trends','RMR','Reduc']:
         if input_nbook['type'] in ['Trends','RMR']:input_nbook['par']['fit_type'] = 'indiv'   #overplot fits to individual exposures 
