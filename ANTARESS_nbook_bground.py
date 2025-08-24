@@ -303,9 +303,8 @@ def plot_system(input_nbook):
     BJD_dic = {
       'inst':input_nbook['par']['instrument'],
       'vis':input_nbook['par']['night'],
-      't':np.linspace(main_pl_Tcenter - 1.5*visit_breadth_low, main_pl_Tcenter + 1.5*visit_breadth_high, input_nbook['par']['nexp']//3)
+      't':np.linspace(main_pl_Tcenter - 1.5*visit_breadth_low, main_pl_Tcenter + 1.5*visit_breadth_high, input_nbook['par']['nexp']//2)
     }
-    print('0:', input_nbook['par']['t_BJD'], BJD_dic)
     input_nbook['plots']['system_view']={'t_BJD':BJD_dic ,'GIF_generation':True}
     return None
 
