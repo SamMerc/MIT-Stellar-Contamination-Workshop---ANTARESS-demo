@@ -4,7 +4,6 @@ from copy import deepcopy
 import numpy as np
 import os as os_system
 from os.path import exists as path_exist
-from antaress.ANTARESS_general.utils import datasave_npz
 
 '''
 Initialization functions
@@ -29,9 +28,6 @@ def save_system(input_nbook):
     
     #Saving contents of current notebook under its name, so that we can track the origin of the settings in other notebooks
     all_input_nbook[input_nbook['type']] = input_nbook 
-    
-    #Saving contents in notebook-specific field, so that we can track the origin of the settings in other notebooks
-    datasave_npz(input_nbook['saved_data_path']+'/'+'init_sys',all_input_nbook)
     
     return None
 
