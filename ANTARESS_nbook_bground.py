@@ -20,9 +20,9 @@ def save_system(input_nbook):
     
     input_nbook['saved_data_path'] = input_nbook['working_path']+'/'+input_nbook['par']['star_name'] +'/'+input_nbook['par']['main_pl'] + '_Saved_data'
     print('System and data stored in : ', input_nbook['saved_data_path'])
-    print('Plots stored in : ', input_nbook['plots_path'])
+    print('Plots stored in : ', input_nbook['plot_path'])
     if (not path_exist(input_nbook['saved_data_path'])): os_system.makedirs(input_nbook['saved_data_path'])
-    if (not path_exist(input_nbook['plots_path'])): os_system.makedirs(input_nbook['plots_path'])
+    if (not path_exist(input_nbook['plot_path'])): os_system.makedirs(input_nbook['plot_path'])
 
     #Saving previously processed notebooks
     if 'all_nbooks' in input_nbook:
