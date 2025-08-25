@@ -40,6 +40,7 @@ def init():
         #notebook inputs that will overwrite configuration settings file
         'settings' : {'gen_dic':{'data_dir_list':{},'type':{}},
                       'mock_dic':{'visit_def':{},'sysvel':{},'intr_prof':{},'flux_cont':{},'set_err':{}},
+                      'theo_dic':{'nsub_Dar':{}, 'nsub_Dpl':{}},
                       'data_dic':{'DI':{'sysvel':{}},
                                   'Intr':{},'Diff':{}},
                       'glob_fit_dic':{'DIProp':{},'IntrProp':{},'IntrProf':{},'DiffProf':{}},
@@ -76,6 +77,7 @@ def init_star(input_nbook):
                 'sysvel':input_nbook['par']['sysvel'],
                 }}
     input_nbook['settings']['data_dic']['DI']['system_prop']={'achrom':{'LD':['quadratic'],'LD_u1' : [input_nbook['par']['ld_u1']],'LD_u2' : [input_nbook['par']['ld_u2']]}}
+    input_nbook['settings']['theo_dic']['nsub_Dstar'] = input_nbook['par']['nsub_Dstar']
     return None   
 
 def init_ar(input_nbook,ar_type):
@@ -88,7 +90,7 @@ def init_ar(input_nbook,ar_type):
                                                            }
         input_nbook['settings']['gen_dic']['studied_ar'] = {}
         input_nbook['settings']['data_dic']['DI']['ar_prop'] = {'achrom':{'LD':['quadratic'],'LD_u1' : [input_nbook['par']['ld_ar_u1']],'LD_u2' : [input_nbook['par']['ld_ar_u2']]}}
-        input_nbook['settings']['data_dic']['DI']['transit_prop'] = {'nsub_Dstar':201., 
+        input_nbook['settings']['data_dic']['DI']['transit_prop'] = {'nsub_Dstar':101., 
                                                                      inst:{
                                                                           vis:{'mode':'simu', 'n_oversamp':5.}
                                                                           }
@@ -99,7 +101,8 @@ def init_ar(input_nbook,ar_type):
         input_nbook['settings']['mock_dic']['ar_prop'][inst][vis][temp+'__IS'+inst+'_VS'+vis+'__AR'+input_nbook['par']['ar_name']]=input_nbook['par'][key]
     input_nbook['settings']['gen_dic']['studied_ar'][input_nbook['par']['ar_name']]={inst:[vis]}
     input_nbook['settings']['data_dic']['DI']['ar_prop']['achrom'][input_nbook['par']['ar_name']]=[input_nbook['par']['ang']*np.pi/180.]
-    input_nbook['settings']['theo_dic']=input_nbook['settings']['mock_dic']
+    input_nbook['settings']['theo_dic']['ar_prop']=input_nbook['settings']['mock_dic']['ar_prop']
+    input_nbook['settings']['theo_dic']['nsub_Dar'].update({input_nbook['par']['ar_name'] : input_nbook['par']['nsub_Dar']})
     return None
 
 def init_pl(input_nbook,pl_type):
@@ -109,7 +112,8 @@ def init_pl(input_nbook,pl_type):
                 'ecc':input_nbook['par']['ecc'],
                 'omega_deg':input_nbook['par']['long_per'],   
                 'Kstar':input_nbook['par']['Kstar'],
-                }        
+                }
+    input_nbook['settings']['theo_dic']['nsub_Dpl'].update({input_nbook['par']['planet_name'] :  input_nbook['par']['nsub_Dpl']})
     if pl_type=='main':
         input_nbook['par']['main_pl'] = deepcopy(input_nbook['par']['planet_name'])
         input_nbook['settings']['gen_dic']['studied_pl']={input_nbook['par']['main_pl']:{}}
@@ -378,7 +382,6 @@ def plot_prof(input_nbook,data_type):
         'GIF_generation':True,
         'shade_cont':True,
         'plot_line_model':True,
-        'multi_exp':True,
         'plot_prop':False} 
     if input_nbook['type'] in ['Trends','RMR','Reduc']:
         if input_nbook['type'] in ['Trends','RMR']:input_nbook['par']['fit_type'] = 'indiv'   #overplot fits to individual exposures 
