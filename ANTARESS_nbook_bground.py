@@ -296,7 +296,7 @@ Plot functions
 '''
 
 def plot_light_curve(input_nbook):
-    input_nbook['settings']['plot_dic']['input_LC'] = 'png' 
+    input_nbook['settings']['plot_dic']['spectral_LC'] = 'png' 
     return None
 
 def plot_system(input_nbook):
