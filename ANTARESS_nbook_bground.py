@@ -295,6 +295,10 @@ def set_mock_prof(input_nbook):
 Plot functions
 '''
 
+def plot_light_curve(input_nbook):
+    input_nbook['settings']['plot_dic']['input_LC'] = 'png' 
+    return None
+
 def plot_system(input_nbook):
     input_nbook['settings']['plot_dic']['system_view'] = 'png' 
     input_nbook['plots']['system_view']={'t_BJD':input_nbook['par']['t_BJD'] ,'GIF_generation':True, 'n_stcell':101, 'n_arcell':51}
