@@ -187,10 +187,7 @@ def align_prof(input_nbook):
 
 def flux_sc(input_nbook):
     input_nbook['settings']['gen_dic']['flux_sc']=True
-
-    #Processing mock dataset: scaled to the correct level by construction
-    if input_nbook['settings']['gen_dic']['mock_data']:
-        input_nbook['settings']['data_dic']['DI']['rescale_DI'] = False 
+    input_nbook['settings']['data_dic']['DI']['rescale_DI'] = True 
     return None
 
 def DImast_weight(input_nbook):
