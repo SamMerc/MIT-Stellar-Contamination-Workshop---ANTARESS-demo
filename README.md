@@ -1,4 +1,4 @@
-# MIT Stellar Contamination Workshop 2025 
+# [MIT Stellar Contamination Workshop 2025](https://sites.google.com/mit.edu/starsplanets2025/) 
 ## Focus Session IV : Modeling Starspots and Active Surfaces
 ### `ANTARESS` with active regions demo
 
